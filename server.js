@@ -13,12 +13,11 @@ app.use(express.json());
 app.post('/suspend', (req, res) => {
     console.log('Recebido pedido de suspensão via API...');
 
-    // O script AutoHotkey (suspend.ahk) escuta por Shift + Alt + F12 (+!F12)
-    // Para enviar isso via WScript.Shell (usado no PowerShell):
+    // Ctrl + Shift + 4 está mapeado no AHK para suspender o PC
+    // Para enviar isso via WScript.Shell:
+    // ^ = Ctrl
     // + = Shift
-    // % = Alt
-    // {F12} = Tecla F12
-    const psCommand = `powershell -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('+%{F12}')"`;
+    const psCommand = `powershell -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+4')"`;
 
     exec(psCommand, (error, stdout, stderr) => {
         if (error) {
@@ -26,7 +25,7 @@ app.post('/suspend', (req, res) => {
             return res.status(500).json({ error: 'Erro ao enviar atalho de suspensão', details: error.message });
         }
         
-        console.log('Atalho Shift+Alt+F12 enviado com sucesso.');
+        console.log('Atalho Ctrl+Shift+4 enviado com sucesso.');
         res.json({ message: 'Atalho de suspensão enviado', status: 'success' });
     });
 });

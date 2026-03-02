@@ -35,6 +35,10 @@ if ($shouldFixPrimaryRefreshRate -or $shouldFixSecondaryRefreshRate) {
         Use-DisplayConfig
 }
 
+# --- Close Steam ---
+Write-Host "Encerrando Steam"
+Stop-Process -Name "steam" -Force -ErrorAction SilentlyContinue
+
 # --- Áudio ---
 Write-Host "Definindo saída de áudio para o Desktop..."
 Get-AudioDevice -List |
