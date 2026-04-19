@@ -5,7 +5,8 @@
 
 # --- Nomes dos dispositivos de áudio ---
 $tvAudioName      = "*Beyond TV (NVIDIA High Definition Audio)*"
-$desktopAudioName = "*Realtek(R) Audio*"
+$desktopAudioName = "*Audio 2nd output*"
+# $desktopAudioName = "*Realtek(R) Audio*"
 
 # --- IDs dos monitores ---
 $primaryMonitorId   = 1

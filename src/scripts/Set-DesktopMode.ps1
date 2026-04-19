@@ -12,7 +12,7 @@ $tvDisplayId  = Get-TvDisplayId
 $allDisplays  = Get-DisplayInfo
 
 $shouldSetPrimaryMode          = -not ($allDisplays | Where-Object { $_.DisplayId -eq $primaryMonitorId }).Primary
-$shouldFixPrimaryRefreshRate   = ($allDisplays | Where-Object { $_.DisplayId -eq $primaryMonitorId }).Mode   -notlike "*144 Hz*"
+$shouldFixPrimaryRefreshRate   = ($allDisplays | Where-Object { $_.DisplayId -eq $primaryMonitorId }).Mode   -notlike "*180 Hz*"
 $shouldFixSecondaryRefreshRate = ($allDisplays | Where-Object { $_.DisplayId -eq $secondaryMonitorId }).Mode -notlike "*120 Hz*"
 
 # --- Configuração dos monitores ---
@@ -29,7 +29,7 @@ if ($shouldFixPrimaryRefreshRate -or $shouldFixSecondaryRefreshRate) {
     Write-Host "Taxas de atualização dos monitores estão incorretas. Corrigindo..."
 
     Get-DisplayConfig |
-        Set-DisplayRefreshRate -DisplayId $primaryMonitorId   -RefreshRate 144 |
+        Set-DisplayRefreshRate -DisplayId $primaryMonitorId   -RefreshRate 180 |
         Set-DisplayPosition    -DisplayId $secondaryMonitorId -XPosition 1920 -YPosition -290 -AsOffset |
         Set-DisplayRefreshRate -DisplayId $secondaryMonitorId -RefreshRate 120 |
         Use-DisplayConfig
