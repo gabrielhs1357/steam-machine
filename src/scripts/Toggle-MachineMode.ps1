@@ -15,3 +15,5 @@ if ($currentState -eq "Desktop") {
     Write-Host "Alternando para Desktop..."
     & "$PSScriptRoot\Set-DesktopMode.ps1"
 }
+
+Read-Host "Pressione Enter para fechar"

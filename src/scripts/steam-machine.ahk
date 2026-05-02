@@ -9,7 +9,8 @@
     comando := 'powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File "' psScriptPath '"'
     
     ; Executa o script silenciosamente ("Hide" oculta a janela)
-    Run(comando, , "Hide")
+    ; Run(comando, , "Hide")
+    Run(comando, , "Max")
 }
 
 ; Ctrl + Shift + 2 -> Desliga o PC
