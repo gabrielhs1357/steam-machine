@@ -94,31 +94,19 @@ app.post('/shutdown', (req, res) => {
 });
 
 app.post('/nyrna', (req, res) => {
-    console.log('Recebido pedido suspender o processo com o Nyrna via API...');
+    console.log('Recebido pedido para suspender o processo com o Nyrna via API...');
 
-    // Ctrl + Shift + 5 está mapeado como atalho do Nyrna
-    const psCommand = `powershell -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+5')"`;
+    // Adicionado -WindowStyle Hidden para evitar que o PowerShell crie interface gráfica
+    const psCommand = `powershell -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+5')"`;
 
-    exec(psCommand, (error) => {
+    // A opção { windowsHide: true } é crucial: ela diz ao Node.js para ocultar a janela do subprocesso
+    exec(psCommand, { windowsHide: true }, (error) => {
         if (error) {
             console.error(`Erro ao executar suspend: ${error.message}`);
             return res.status(500).json({ error: 'Erro ao enviar atalho de suspend', details: error.message });
         }
 
         console.log('Atalho Ctrl+Shift+5 enviado com sucesso.');
-
-        // setTimeout(() => {
-        //     console.log('5 segundos se passaram, enviando Ctrl+Shift+4 para suspender o PC...');
-        //     const psCommandSuspend = `powershell -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+4')"`;
-            
-        //     exec(psCommandSuspend, (error) => {
-        //         if (error) {
-        //             console.error(`Erro ao executar suspend: ${error.message}`);
-        //             return res.status(500).json({ error: 'Erro ao enviar atalho de suspend', details: error.message });
-        //         }
-        //         console.log('Atalho Ctrl+Shift+4 enviado com sucesso.');
-        //     });
-        // }, 5000);
 
         res.json({ message: 'Nyrna chamado via atalho', status: 'success' });
     });
