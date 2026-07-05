@@ -28,3 +28,5 @@
     Sleep(1000)
     DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 }
+
+; Ctrl + Shift + 5 -> Suspende o PC usando o Nyrna
