@@ -93,10 +93,10 @@ app.post('/shutdown', (req, res) => {
     });
 });
 
-app.post('/nyrna-suspend', (req, res) => {
-    console.log('Recebido pedido de suspend com o Nyrna via API...');
+app.post('/nyrna', (req, res) => {
+    console.log('Recebido pedido suspender o processo com o Nyrna via API...');
 
-    // Ctrl + Shift + 5 está mapeado como atalho do Nyrna para suspender o PC
+    // Ctrl + Shift + 5 está mapeado como atalho do Nyrna
     const psCommand = `powershell -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+5')"`;
 
     exec(psCommand, (error) => {
@@ -107,20 +107,20 @@ app.post('/nyrna-suspend', (req, res) => {
 
         console.log('Atalho Ctrl+Shift+5 enviado com sucesso.');
 
-        setTimeout(() => {
-            console.log('5 segundos se passaram, enviando Ctrl+Shift+4 para suspender o PC...');
-            const psCommandSuspend = `powershell -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+4')"`;
+        // setTimeout(() => {
+        //     console.log('5 segundos se passaram, enviando Ctrl+Shift+4 para suspender o PC...');
+        //     const psCommandSuspend = `powershell -NoProfile -ExecutionPolicy Bypass -Command "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^+4')"`;
             
-            exec(psCommandSuspend, (error) => {
-                if (error) {
-                    console.error(`Erro ao executar suspend: ${error.message}`);
-                    return res.status(500).json({ error: 'Erro ao enviar atalho de suspend', details: error.message });
-                }
-                console.log('Atalho Ctrl+Shift+4 enviado com sucesso.');
-            });
-        }, 5000);
+        //     exec(psCommandSuspend, (error) => {
+        //         if (error) {
+        //             console.error(`Erro ao executar suspend: ${error.message}`);
+        //             return res.status(500).json({ error: 'Erro ao enviar atalho de suspend', details: error.message });
+        //         }
+        //         console.log('Atalho Ctrl+Shift+4 enviado com sucesso.');
+        //     });
+        // }, 5000);
 
-        res.json({ message: 'Suspend iniciado via atalho', status: 'success' });
+        res.json({ message: 'Nyrna chamado via atalho', status: 'success' });
     });
 });
 
