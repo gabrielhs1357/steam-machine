@@ -199,4 +199,3 @@ app.listen(PORT, () => {
     console.log(`Rota disponível: POST http://localhost:${PORT}/nyrna`);
     console.log(`Rota disponível: POST http://localhost:${PORT}/games/:appId/launch`);
 });
-f
