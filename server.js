@@ -71,7 +71,6 @@ app.post("/suspend", (_req, res) => {
 });
 
 app.get("/health-check", (_req, res) => {
-	f;
 	console.log("Health check recebido...");
 	res.json({ status: "ok" });
 });
@@ -200,3 +199,4 @@ app.listen(PORT, () => {
     console.log(`Rota disponível: POST http://localhost:${PORT}/nyrna`);
     console.log(`Rota disponível: POST http://localhost:${PORT}/games/:appId/launch`);
 });
+f
