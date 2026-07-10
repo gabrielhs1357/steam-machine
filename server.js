@@ -72,17 +72,24 @@ app.post("/suspend", (_req, res) => {
 
 app.get("/health-check", (_req, res) => {
 	console.log("Health check recebido...");
-	res.json({ status: "ok" });
+	res.json({ status: "ok", mode: getCurrentMachineMode() });
 });
 
 app.get("/machine-mode", (_req, res) => {
 	console.log("Recebido pedido de machine-mode via API...");
 
-	const iniPath = path.join(__dirname, "src", "scripts", "machine_state.ini");
-	const modeMap = { Desktop: "Desktop", Console: "Console" };
-	let mode = "Unknown";
+    const mode = getCurrentMachineMode();
 
-	try {
+	console.log(`Machine mode atual: ${mode}`);
+	res.json({ mode });
+});
+
+function getCurrentMachineMode() {
+    const iniPath = path.join(__dirname, "src", "scripts", "machine_state.ini");
+    const modeMap = { Desktop: "Desktop", Console: "Console" };
+    let mode = "Unknown";
+
+    try {
 		const content = fs.readFileSync(iniPath, "utf8");
 		const match = content.match(/Mode\s*=\s*(\S+)/);
 		if (match) {
@@ -91,10 +98,8 @@ app.get("/machine-mode", (_req, res) => {
 	} catch (err) {
 		console.error(`Erro ao ler machine_state.ini: ${err.message}`);
 	}
-
-	console.log(`Machine mode atual: ${mode}`);
-	res.json({ mode });
-});
+    return mode;
+}
 
 app.post("/toggle-machine-mode", (_req, res) => {
 	console.log("Recebido pedido de toggle-machine-mode via API...");
