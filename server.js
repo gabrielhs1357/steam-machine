@@ -10,7 +10,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/games/:appId/launch", (req, res) => {
+app.post("/games/:appId/launch", (req, res) => {
 	const { appId } = req.params;
 
 	if (!appId || Number.isNaN(appId)) {
@@ -71,6 +71,7 @@ app.post("/suspend", (_req, res) => {
 });
 
 app.get("/health-check", (_req, res) => {
+	f;
 	console.log("Health check recebido...");
 	res.json({ status: "ok" });
 });
