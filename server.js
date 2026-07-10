@@ -197,4 +197,6 @@ app.listen(PORT, () => {
 	);
 	console.log(`Rota disponível: POST http://localhost:${PORT}/shutdown`);
 	console.log(`Rota disponível: POST http://localhost:${PORT}/reboot`);
+    console.log(`Rota disponível: POST http://localhost:${PORT}/nyrna`);
+    console.log(`Rota disponível: POST http://localhost:${PORT}/games/:appId/launch`);
 });
